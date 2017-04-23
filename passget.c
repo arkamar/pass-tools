@@ -11,7 +11,7 @@ char * argv0;
 static
 void
 usage() {
-	fprintf(stderr, "usage: %s pattern\n", argv0);
+	fprintf(stderr, "usage: %s service\n", argv0);
 	exit(1);
 }
 
@@ -38,7 +38,7 @@ main(int argc, char * argv[]) {
 	}
 
 	while ((len = getdelim(&line, &cap, RECORD_SEPARATOR, stdin)) > 0) {
-		if (pass_parse(&pass, line) && strstr(pass.account, patt)) {
+		if (pass_parse(&pass, line) && strstr(pass.service, patt)) {
 			found++;
 			pass_print(&pass);
 			if (found == 1)

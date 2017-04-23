@@ -2,7 +2,7 @@
 #define UNIT_SEPARATOR 0x1f
 
 struct pass {
-	const char * account;
+	const char * service;
 	const char * username;
 	const char * pass;
 	const char * more;
