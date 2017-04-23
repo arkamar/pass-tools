@@ -23,9 +23,9 @@ pass_parse(struct pass * restrict pass, char * restrict line) {
 
 void
 pass_print(const struct pass * pass) {
-	fprintf(stderr, "account: %s\n", pass->account);
-	fprintf(stderr, "user:    %s\n", pass->username);
-	fprintf(stderr, "pass:    %s\n", pass->pass);
-	fprintf(stderr, "addi:    %s\n", pass->additnial);
+	fprintf(stderr, "account:   %s\n", pass->account);
+	fprintf(stderr, "user name: %s\n", pass->username);
+	if (pass->more)
+		fprintf(stderr, "more info: %s\n", pass->more);
 }
 

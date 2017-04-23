@@ -40,7 +40,7 @@ main(int argc, char * argv[]) {
 	while ((len = getdelim(&line, &cap, RECORD_SEPARATOR, stdin)) > 0) {
 		if (pass_parse(&pass, line) && strstr(pass.account, patt)) {
 			found++;
-			fprintf(stderr, "account: %s\n", pass.account);
+			pass_print(&pass);
 			fputs(pass.pass, stdout);
 		}
 		memset(line, 0, cap);

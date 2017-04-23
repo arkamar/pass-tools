@@ -5,7 +5,7 @@ struct pass {
 	const char * account;
 	const char * username;
 	const char * pass;
-	const char * additnial;
+	const char * more;
 };
 
 int pass_parse(struct pass * restrict, char * restrict);
