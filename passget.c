@@ -30,8 +30,8 @@ main(int argc, char * argv[]) {
 	patt = *argv; argv++; argc--;
 
 	if (isatty(fileno(stdout))) {
-		fprintf(stderr, "%s does not print passwords to ttys, "
-			"redirect output to somewhre else\n"
+		fprintf(stderr, "%s does not print pass phrases to ttys, "
+			"redirect output to somewhere else\n"
 			"\n"
 			"For example: %s %s | xclip\n", argv0, argv0, patt);
 		return 1;
@@ -50,9 +50,9 @@ main(int argc, char * argv[]) {
 	free(line);
 
 	if (found == 0)
-		fprintf(stderr, "No record found for patter '%s'\n", patt);
+		fprintf(stderr, "No record found for pattern '%s'\n", patt);
 	if (found > 1)
-		fprintf(stderr, "Multiple records (%lu) found for patter '%s'\n", found, patt);
+		fprintf(stderr, "Multiple records (%lu) found for pattern '%s'\n", found, patt);
 
 	return found != 1;
 }
