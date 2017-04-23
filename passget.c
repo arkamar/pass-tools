@@ -46,6 +46,8 @@ main(int argc, char * argv[]) {
 		memset(line, 0, cap);
 	}
 
+	free(line);
+
 	if (found == 0)
 		fprintf(stderr, "No record found for patter '%s'\n", patt);
 	if (found != 1)
