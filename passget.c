@@ -41,7 +41,8 @@ main(int argc, char * argv[]) {
 		if (pass_parse(&pass, line) && strstr(pass.account, patt)) {
 			found++;
 			pass_print(&pass);
-			fputs(pass.pass, stdout);
+			if (found == 1)
+				fputs(pass.pass, stdout);
 		}
 		memset(line, 0, cap);
 	}
@@ -50,7 +51,7 @@ main(int argc, char * argv[]) {
 
 	if (found == 0)
 		fprintf(stderr, "No record found for patter '%s'\n", patt);
-	if (found != 1)
+	if (found > 1)
 		fprintf(stderr, "Multiple records (%lu) found for patter '%s'\n", found, patt);
 
 	return found != 1;
