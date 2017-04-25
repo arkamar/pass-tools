@@ -2,7 +2,8 @@ include config.mk
 -include local.mk
 
 BIN = \
-	passget
+	passget \
+	passinfo
 OBJ = $(BIN:=.o) \
 	pass.o
 MAN1 = $(BIN:=.1)
@@ -11,8 +12,8 @@ MAN1 = $(BIN:=.1)
 all: $(BIN)
 
 $(OBJ): config.mk
-passget.o pass.o: pass.h
-passget: pass.o
+$(BIN:=.o) pass.o: pass.h
+$(BIN): pass.o
 
 .PHONY: install
 install: $(BIN)
