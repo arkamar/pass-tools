@@ -18,7 +18,7 @@ pass_parse(struct pass * restrict pass, char * restrict line) {
 			continue;
 		}
 	}
-	return i == 4;
+	return i == 3 || i == 4;
 }
 
 void
