@@ -43,7 +43,7 @@ main(int argc, char * argv[]) {
 		if (pass_parse(&pass, line) && strstr(pass.service, patt)
 				&& (!user ? 1 : !!strstr(pass.username, user))) {
 			found++;
-			pass_print(&pass);
+			pass_print_info(&pass, stderr);
 			if (found == 1)
 				fputs(pass.pass, stdout);
 		}

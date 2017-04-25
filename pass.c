@@ -22,14 +22,14 @@ pass_parse(struct pass * restrict pass, char * restrict line) {
 }
 
 void
-pass_print(const struct pass * pass) {
-	fputs(pass->service, stderr);
-	fputc('\t', stderr);
-	fputs(pass->username, stderr);
+pass_print_info(const struct pass * pass, FILE * f) {
+	fputs(pass->service, f);
+	fputc('\t', f);
+	fputs(pass->username, f);
 	if (pass->more) {
-		fputc('\t', stderr);
-		fputs(pass->more, stderr);
+		fputc('\t', f);
+		fputs(pass->more, f);
 	}
-	fputc('\n', stderr);
+	fputc('\n', f);
 }
 

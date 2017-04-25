@@ -9,4 +9,4 @@ struct pass {
 };
 
 int pass_parse(struct pass * restrict, char * restrict);
-void pass_print(const struct pass *);
+void pass_print_info(const struct pass *, FILE *);

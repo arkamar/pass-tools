@@ -26,7 +26,7 @@ main(int argc, char * argv[]) {
 
 	while (getdelim(&line, &cap, RECORD_SEPARATOR, stdin) > 0)
 		if (pass_parse(&pass, line))
-			pass_print(&pass);
+			pass_print_info(&pass, stdout);
 
 	free(line);
 
