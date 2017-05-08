@@ -2,6 +2,7 @@ include config.mk
 -include local.mk
 
 BIN = \
+	passadd \
 	passget \
 	passinfo
 OBJ = $(BIN:=.o) \
