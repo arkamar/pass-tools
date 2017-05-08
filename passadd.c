@@ -44,7 +44,9 @@ main(int argc, char * argv[]) {
 		if (pass_parse(&pass, line)
 				&& !strcmp(pass.service, service)
 				&& !strcmp(pass.username, user)) {
-			fprintf(stderr, "Record for service '%s' with user name '%s' already here\n", service, user);
+			fprintf(stderr,
+				"Record for service '%s' with user name '%s' is already here\n",
+				service, user);
 			return 1;
 		}
 		memset(line, 0, cap);
