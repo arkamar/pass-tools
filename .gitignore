@@ -1,7 +1,10 @@
 *.o
+*.pwd
+*.gpg
 
 local.mk
 
 passadd
+passgen
 passget
 passinfo

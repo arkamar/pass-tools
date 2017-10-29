@@ -3,6 +3,7 @@ include config.mk
 
 BIN = \
 	passadd \
+	passgen \
 	passget \
 	passinfo
 OBJ = $(BIN:=.o) \
