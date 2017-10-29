@@ -36,7 +36,15 @@ main(int argc, char * argv[]) {
 	if (argv)
 		info = *argv; argv++; argc--;
 
-	while (!isatty(0) && (len = getdelim(&line, &cap, RECORD_SEPARATOR, stdin)) > 0) {
+	if (isatty(fileno(stdout))) {
+		fprintf(stderr, "%s does not print pass phrases to ttys, "
+			"redirect output to somewhere else\n"
+			"\n"
+			"For example: %s %s %s | gpg ....\n", argv0, argv0, service, user);
+		return 1;
+	}
+
+	while (!isatty(fileno(stdin)) && (len = getdelim(&line, &cap, RECORD_SEPARATOR, stdin)) > 0) {
 		fwrite(line, 1, len, stdout);
 		if (pass_parse(&pass, line)
 				&& !strcmp(pass.service, service)
