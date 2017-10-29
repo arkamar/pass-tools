@@ -10,7 +10,7 @@ static
 void
 usage() {
 	fprintf(stderr, "usage: %s\n", argv0);
-	exit(1);
+	exit(PASS_ERROR);
 }
 
 int
@@ -25,10 +25,10 @@ main(int argc, char * argv[]) {
 		usage();
 
 	while (getdelim(&line, &cap, RECORD_SEPARATOR, stdin) > 0)
-		if (pass_parse(&pass, line))
+		if (pass_parse(&pass, line) == PASS_SUCCESS)
 			pass_print_info(&pass, stdout);
 
 	free(line);
 
-	return 0;
+	return PASS_SUCCESS;
 }

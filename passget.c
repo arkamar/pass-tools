@@ -40,7 +40,7 @@ main(int argc, char * argv[]) {
 	}
 
 	while ((len = getdelim(&line, &cap, RECORD_SEPARATOR, stdin)) > 0) {
-		if (pass_parse(&pass, line) && strstr(pass.service, patt)
+		if (pass_parse(&pass, line) == PASS_SUCCESS && strstr(pass.service, patt)
 				&& (!user ? 1 : !!strstr(pass.username, user))) {
 			found++;
 			pass_print_info(&pass, stderr);
