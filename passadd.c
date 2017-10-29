@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "pass.h"
 
@@ -11,36 +12,32 @@ char * argv0;
 static
 void
 usage() {
-	fprintf(stderr, "usage: %s file service username [info]\n", argv0);
+	fprintf(stderr, "usage: %s service username [info]\n", argv0);
 	exit(1);
 }
 
 int
 main(int argc, char * argv[]) {
-	const char * filename, * service, * user, * info = NULL;
+	const char * service, * user, * info = NULL;
+	char * password;
 	char * line = 0;
 	size_t cap = 0;
 	struct pass pass;
 	ssize_t len;
-	FILE * f;
 
 	argv0 = *argv; argv++; argc--;
 
-	if (argc != 3 && argc != 4)
+	if (argc != 2 && argc != 3)
 		usage();
 
-	filename = *argv; argv++; argc--;
 	service = *argv; argv++; argc--;
 	user = *argv; argv++; argc--;
+
 	if (argv)
 		info = *argv; argv++; argc--;
 
-	if (!(f = fopen(filename, "r+"))) {
-		perror("Cannot open file");
-		return 1;
-	}
-
-	while (getdelim(&line, &cap, RECORD_SEPARATOR, f) > 0) {
+	while (!isatty(0) && (len = getdelim(&line, &cap, RECORD_SEPARATOR, stdin)) > 0) {
+		fwrite(line, 1, len, stdout);
 		if (pass_parse(&pass, line)
 				&& !strcmp(pass.service, service)
 				&& !strcmp(pass.username, user)) {
@@ -49,22 +46,23 @@ main(int argc, char * argv[]) {
 				service, user);
 			return 1;
 		}
-		memset(line, 0, cap);
+		xmemset(line, 0, cap);
 	}
 
-	fputs(service, f);
-	fputc(UNIT_SEPARATOR, f);
-	fputs(user, f);
-	fputc(UNIT_SEPARATOR, f);
-	while ((len = fread(line, 1, cap, stdin)) > 0) {
-		fwrite(line, 1, len, f);
-	}
-	fputc(UNIT_SEPARATOR, f);
+	fputs(service, stdout);
+	fputc(UNIT_SEPARATOR, stdout);
+	fputs(user, stdout);
+	fputc(UNIT_SEPARATOR, stdout);
+	password = getpass("Password: ");
+	fputs(password, stdout);
+	fputc(UNIT_SEPARATOR, stdout);
 	if (info)
-		fputs(info, f);
-	fputc(RECORD_SEPARATOR, f);
+		fputs(info, stdout);
+	fputc(RECORD_SEPARATOR, stdout);
 
-	fclose(f);
+	xmemset(password, 0, strlen(password));
+
+	fclose(stdout);
 	free(line);
 
 	return 0;

@@ -33,3 +33,11 @@ pass_print_info(const struct pass * pass, FILE * f) {
 	fputc('\n', f);
 }
 
+void *
+xmemset(void * s, int c, size_t n) {
+	size_t i;
+	char * ss = s;
+	for (i = 0; i < n; i++)
+		ss[i] = c;
+	return ss;
+}

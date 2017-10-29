@@ -1,5 +1,5 @@
 PREFIX ?= /usr
-MANPREFIX = $(PREFIX)/share/man
+MANPREFIX = $(DESTDIR)$(PREFIX)/share/man
 
 CFLAGS ?= -O2
 CFLAGS += -Wall -pedantic

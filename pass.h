@@ -10,3 +10,4 @@ struct pass {
 
 int pass_parse(struct pass * restrict, char * restrict);
 void pass_print_info(const struct pass *, FILE *);
+void * xmemset(void *s, int c, size_t n);
