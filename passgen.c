@@ -17,7 +17,11 @@ char * argv0;
 
 void
 usage() {
-	fprintf(stderr, "usage: %s [-ab]\n", argv0);
+	fprintf(stderr, "usage: %s [-ab]\n"
+		"\n"
+		"   -a   letters and numbers 'A-Za-z0-9'\n"
+		"   -b   like -a plus '-_'\n"
+		"\n", argv0);
 	exit(PASS_ERROR);
 }
 
@@ -83,7 +87,7 @@ pass_tr(unsigned char * pass, const size_t len,
 
 int
 main(int argc, char * argv[]) {
-	unsigned char buf[256];
+	unsigned char buf[32];
 	size_t len = sizeof buf;
 	int i;
 	enum pass_tr pt = PASS_TR_PRINT;
