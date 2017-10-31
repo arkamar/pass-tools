@@ -6,15 +6,14 @@ BIN = \
 	passgen \
 	passget \
 	passinfo
-OBJ = $(BIN:=.o) \
-	pass.o
+OBJ = pass.o
 MAN1 = $(BIN:=.1)
 
 .PHONY: all
 all: $(BIN)
 
 $(OBJ): config.mk
-$(BIN:=.o) pass.o: pass.h
+pass.o: pass.h
 $(BIN): pass.o
 
 .PHONY: install
