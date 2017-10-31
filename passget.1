@@ -1,20 +1,20 @@
-.Dd April 24, 2017
+.Dd November 1, 2017
 .Dt PASSGET
 .Sh NAME
 .Nm passget
 .Nd get password
 .Sh SYNOPSIS
 .Nm
-.Ar service_pattern
-.Op user_pattern
+.Ar service
+.Op username
 .Sh DESCRIPTION
 .Nm
-reads password file from standard input and prints out a pass phrase for an account matching a
-.Ar service_pattern
-and optionally also matching an
-.Ar user_pattern
-to the standard output.
-It prints only first match if there is multiple matches, but it informs a user about this situation and exits with nonzero status.
+reads password file from standard input and prints out a pass phrase to the standard output for an account matching a
+.Ar service
+pattern and optionally also matching an
+.Ar username
+pattern.
+It prints only the first match if there is multiple matches, but it informs the user about this situation and exits with nonzero status.
 .Pp
 .Nm
-prints the result only if the standard output is not tty.
+prints the result only if the standard output is not a tty.
