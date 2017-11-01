@@ -1,0 +1,17 @@
+.Dd November 1, 2017
+.Dt PASSGEN
+.Sh NAME
+.Nm passgen
+.Nd generate password
+.Sh SYNOPSIS
+.Nm
+.Op Fl ab
+.Sh DESCRIPTION
+.Nm
+generates random password.
+It uses all
+.Xr ascii 7
+printable characters by default, but it is also possible to restrict the output to alphanumeric by setting the parameter
+.Fl a ,
+or alphanumeric with - and _ by setting the parameter
+.Fl b .
