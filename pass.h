@@ -6,6 +6,12 @@ enum {
 	PASS_ERROR
 };
 
+enum pass_tr {
+	PASS_TR_PRINT,
+	PASS_TR_ALNUM,
+	PASS_TR_ALNUM_HAS_UNDER,
+};
+
 struct pass {
 	const char * service;
 	const char * username;
@@ -14,6 +20,7 @@ struct pass {
 };
 
 int pass_getrandom(void *, const size_t);
+int pass_tr(unsigned char *, const size_t, const enum pass_tr);
 
 int pass_parse(struct pass * restrict, char * restrict);
 int pass_print_info(const struct pass *, FILE *);
