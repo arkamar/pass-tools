@@ -39,5 +39,6 @@ main(int argc, char * argv[]) {
 	len = pass_getrandom(buf, sizeof buf);
 	pass_tr(buf, len, pt);
 	fwrite(buf, 1, len, stdout);
+	xmemset(buf, 0, len);
 	return PASS_SUCCESS;
 }

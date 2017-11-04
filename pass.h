@@ -10,6 +10,7 @@ enum pass_tr {
 	PASS_TR_PRINT,
 	PASS_TR_ALNUM,
 	PASS_TR_ALNUM_HAS_UNDER,
+	PASS_TR_LENGTH
 };
 
 struct pass {

@@ -50,17 +50,29 @@ tr_alphanum_hyp_uder(unsigned char c) {
 }
 
 static
-unsigned char (* const callback[])(unsigned char) = {
-	[PASS_TR_PRINT] = tr_all_printable,
-	[PASS_TR_ALNUM] = tr_alphanum,
-	[PASS_TR_ALNUM_HAS_UNDER] = tr_alphanum_hyp_uder
-};
+unsigned char
+call_tr(const enum pass_tr tr, unsigned char c) {
+	switch (tr) {
+	case PASS_TR_ALNUM:
+		return tr_alphanum(c);
+	case PASS_TR_ALNUM_HAS_UNDER:
+		return tr_alphanum_hyp_uder(c);
+	default:
+		fputs("Unknown transformation\n", stderr);
+	case PASS_TR_PRINT:
+		return tr_all_printable(c);
+	}
+}
 
 int
 pass_tr(unsigned char * pass, const size_t len, const enum pass_tr tr) {
 	int i;
+
+	if (tr >= PASS_TR_LENGTH)
+		return PASS_ERROR;
+
 	for (i = 0; i < len; i++)
-		pass[i] = callback[tr](pass[i]);
+		pass[i] = call_tr(tr, pass[i]);
 
 	return PASS_SUCCESS;
 }
