@@ -13,6 +13,8 @@ struct pass {
 	const char * info;
 };
 
+int pass_getrandom(void *, const size_t);
+
 int pass_parse(struct pass * restrict, char * restrict);
 int pass_print_info(const struct pass *, FILE *);
 int pass_print_out(const struct pass *, FILE *);

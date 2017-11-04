@@ -13,7 +13,7 @@ MAN1 = $(BIN:=.1)
 all: $(BIN)
 
 $(OBJ): config.mk
-pass.o: pass.h
+pass.o: pass.c pass.h
 $(BIN): pass.o
 
 .PHONY: install

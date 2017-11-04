@@ -1,7 +1,22 @@
+#include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "pass.h"
+
+int
+pass_getrandom(void * in, const size_t size) {
+	char * buf = in;
+	int fd = open("/dev/urandom", O_RDONLY);
+	size_t len;
+	if (fd == -1)
+		return PASS_ERROR;
+	len = read(fd, buf, size);
+	buf[len] = '\0';
+	close(fd);
+	return len;
+}
 
 int
 pass_parse(struct pass * restrict pass, char * restrict line) {

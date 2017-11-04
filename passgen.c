@@ -1,8 +1,6 @@
-#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
 #include "arg.h"
 #include "pass.h"
@@ -23,19 +21,6 @@ usage() {
 		"   -b   like -a plus '-_'\n"
 		"\n", argv0);
 	exit(PASS_ERROR);
-}
-
-int
-pass_getrandom(void * in, size_t size) {
-	char * buf = in;
-	int fd = open("/dev/urandom", O_RDONLY);
-	size_t len;
-	if (fd == -1)
-		return PASS_ERROR;
-	len = read(fd, buf, size);
-	buf[len] = '\0';
-	close(fd);
-	return len;
 }
 
 static

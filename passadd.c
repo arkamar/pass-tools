@@ -1,4 +1,3 @@
-#include <linux/random.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -60,7 +59,7 @@ main(int argc, char * argv[]) {
 
 	new.pass = getpass("Password: ");
 	pass_print_out(&new, stdout);
-	xmemset(new.pass, 0, strlen(new.pass));
+	xmemset((void*)new.pass, 0, strlen(new.pass));
 
 	fclose(stdout);
 	free(line);
