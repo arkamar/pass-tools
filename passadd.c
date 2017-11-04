@@ -3,26 +3,48 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "arg.h"
 #include "pass.h"
 
-static const
 char * argv0;
 
 static
 void
 usage() {
-	fprintf(stderr, "usage: %s service username [info]\n", argv0);
+	fprintf(stderr, "usage: %s [-abp] [-s SIZE] service username [info]\n"
+		"\n"
+		"   -a   letters and numbers 'A-Za-z0-9'\n"
+		"   -b   like -a plus '-_'\n"
+		"   -p   password will be added by user\n"
+		"   -s   password size\n"
+		"\n", argv0);
 	exit(1);
 }
 
 int
 main(int argc, char * argv[]) {
 	char * line = 0;
+	unsigned char * buf = NULL;
 	size_t cap = 0;
 	struct pass pass, new;
-	ssize_t len;
+	ssize_t len, size = 33;
+	int ask_for_password = 0;
+	enum pass_tr tr = PASS_TR_PRINT;
 
-	argv0 = *argv; argv++; argc--;
+	ARGBEGIN {
+	case 'a':
+		tr = PASS_TR_ALNUM;
+		break;
+	case 'b':
+		tr = PASS_TR_ALNUM_HAS_UNDER;
+		break;
+	case 'p':
+		ask_for_password = 1;
+		break;
+	case 's':
+		size = strtol(EARGF(usage()), NULL, 0) + 1;
+		break;
+	} ARGEND
 
 	if (argc != 2 && argc != 3)
 		usage();
@@ -57,12 +79,26 @@ main(int argc, char * argv[]) {
 		xmemset(line, 0, cap);
 	}
 
-	new.pass = getpass("Password: ");
+	if (ask_for_password) {
+		new.pass = getpass("Password: ");
+	} else {
+		buf = malloc(size);
+		if (!buf) {
+			fputs("Cannot allocate memory\n", stderr);
+			return PASS_ERROR;
+		}
+		len = pass_getrandom(buf, size);
+		buf[--len] = '\0';
+		pass_tr(buf, len, tr);
+		new.pass = (char*)buf;
+	}
 	pass_print_out(&new, stdout);
 	xmemset((void*)new.pass, 0, strlen(new.pass));
 
 	fclose(stdout);
 	free(line);
+	if (buf)
+		free(buf);
 
 	return PASS_SUCCESS;
 }
