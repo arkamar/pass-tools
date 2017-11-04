@@ -13,7 +13,6 @@ pass_getrandom(void * in, const size_t size) {
 	if (fd == -1)
 		return PASS_ERROR;
 	len = read(fd, buf, size);
-	buf[len] = '\0';
 	close(fd);
 	return len;
 }
