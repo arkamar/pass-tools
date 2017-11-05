@@ -24,9 +24,12 @@ main(int argc, char * argv[]) {
 	if (argc)
 		usage();
 
-	while (getdelim(&line, &cap, RECORD_SEPARATOR, stdin) > 0)
+	while (getdelim(&line, &cap, RECORD_SEPARATOR, stdin) > 0) {
 		if (pass_parse(&pass, line) == PASS_SUCCESS)
 			pass_print_info(&pass, stdout);
+
+		pass_clear(&pass);
+	}
 
 	free(line);
 
