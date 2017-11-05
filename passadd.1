@@ -5,8 +5,33 @@
 .Nd add password to the pass file
 .Sh SYNOPSIS
 .Nm
+.Op Fl abp
+.Op Fl s Ar SIZE
 .Ar service
 .Ar username
 .Op info
 .Sh DESCRIPTION
 .Nm
+takes list of passwords from standard input and adds a new one to the end of the list. 
+It prints the result to standard output.
+.Sh OPTIONS
+.Bl -tag
+.It Fl a
+Use simplified password composed from [a-zA-Z0-9]
+.It Fl b
+Use simplified password composed from [a-zA-Z0-9-_]
+.It Fl p
+Ask user for the password, otherwise it is automatically generated with all printable ascii characters.
+.It Fl s Ar SIZE
+Generate password with defined
+.Ar SIZE .
+Default value is 32.
+.El
+.Sh EXAMPLES
+.Cm gpg
+-d input.pwd.gpg |
+.Cm passadd
+test.com test |
+.Cm gpg
+-er test@test.com >
+out.pwd.gpg
