@@ -14,6 +14,12 @@
 .Nm
 takes list of passwords from standard input and adds a new one to the end of the list. 
 It prints the result to standard output.
+It uses all
+.Xr ascii 7
+printable characters by default, but it is also possible to restrict the output to alphanumeric by setting the parameter
+.Fl a ,
+or alphanumeric with - and _ by setting the parameter
+.Fl b .
 .Sh OPTIONS
 .Bl -tag
 .It Fl a
