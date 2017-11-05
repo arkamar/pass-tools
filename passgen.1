@@ -6,6 +6,7 @@
 .Sh SYNOPSIS
 .Nm
 .Op Fl ab
+.Op Fl s Ar SIZE
 .Sh DESCRIPTION
 .Nm
 generates random password.
@@ -15,3 +16,14 @@ printable characters by default, but it is also possible to restrict the output 
 .Fl a ,
 or alphanumeric with - and _ by setting the parameter
 .Fl b .
+.Sh OPTIONS
+.Bl -tag
+.It Fl a
+Use simplified password composed from [a-zA-Z0-9]
+.It Fl b
+Use simplified password composed from [a-zA-Z0-9-_]
+.It Fl s Ar SIZE
+Generate password with defined
+.Ar SIZE .
+Default value is 32.
+.El
