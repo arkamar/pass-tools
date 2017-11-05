@@ -121,6 +121,19 @@ pass_print_out(const struct pass * restrict pass, FILE * restrict f) {
 	return PASS_SUCCESS;
 }
 
+int
+pass_clear(struct pass * pass) {
+	if (pass->service)
+		xmemset(pass->service, 0, strlen(pass->service));
+	if (pass->username)
+		xmemset(pass->username, 0, strlen(pass->username));
+	if (pass->pass)
+		xmemset(pass->pass, 0, strlen(pass->pass));
+	if (pass->info)
+		xmemset(pass->info, 0, strlen(pass->info));
+	return PASS_SUCCESS;
+}
+
 void *
 xmemset(void * s, int c, size_t n) {
 	size_t i;

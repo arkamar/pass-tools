@@ -14,15 +14,16 @@ enum pass_tr {
 };
 
 struct pass {
-	const char * service;
-	const char * username;
-	const char * pass;
-	const char * info;
+	char * service;
+	char * username;
+	char * pass;
+	char * info;
 };
 
 int pass_getrandom(void *, const size_t);
 int pass_tr(unsigned char *, const size_t, const enum pass_tr);
 
+int pass_clear(struct pass *);
 int pass_parse(struct pass * restrict, char * restrict);
 int pass_print_info(const struct pass *, FILE *);
 int pass_print_out(const struct pass *, FILE *);
